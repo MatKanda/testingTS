@@ -10,7 +10,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9b617620-80c7-49bc-a50e-1d4bb2c010d6" name="Default Changelist" comment="&quot;skuska&quot;" />
+    <list default="true" id="9b617620-80c7-49bc-a50e-1d4bb2c010d6" name="Default Changelist" comment="&quot;skuska&quot;">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -71,16 +73,12 @@
       <updated>1607192583388</updated>
       <workItem from="1607192584465" duration="2920000" />
       <workItem from="1607204007703" duration="3343000" />
+      <workItem from="1607439105511" duration="281000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-    <option name="exactExcludedFiles">
-      <list>
-        <option value="$PROJECT_DIR$/src/scripts/custom.js" />
-      </list>
-    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -100,6 +98,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="&quot;skuska&quot;" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="549" y="154" key="FileChooserDialogImpl" timestamp="1607439385505">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="549" y="154" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1607439385505" />
     <state x="277" y="57" key="SettingsEditor" timestamp="1607193563830">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -108,9 +110,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1607207183666" />
-    <state x="569" y="314" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1607194943284">
+    <state x="569" y="314" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1607439240344">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="569" y="314" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1536.824@0.0.1536.824" timestamp="1607194943284" />
+    <state x="569" y="314" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1536.824@0.0.1536.824" timestamp="1607439240344" />
   </component>
 </project>
