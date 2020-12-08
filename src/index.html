@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To-do list</title>
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+<body>
+
+<h1>To-do list</h1>
+
+<div style="margin-top: 5%">
+    <div style="float: left; width: 40%">
+        <label for="addTask">Add new task</label><br>
+        <input id="addTask" type="text">
+    </div>
+    <div style="float: right;width: 60%">
+        <label for="addDeadLine">Add task deadline</label><br>
+        <input id="addDeadLine" type="date">
+    </div>
+</div>
+
+<button class="myButton" onclick="addTask()">Accept</button>
+
+<div style="margin-top: 5%">
+    <div id="leftSideDiv">
+        <label for="myLeftList" style="margin-left: 1%">Task</label>
+        <ul id="myLeftList">
+        </ul>
+    </div>
+
+    <div id="rightSideDiv">
+        <label for="myRightList">Deadline</label>
+        <ul id="myRightList">
+        </ul>
+    </div>
+</div>
+
+<!--<script src="../dist/function/function.js"></script>-->
+<script src="dist/lib/index.js"></script>
+</body>
+</html>
