@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <title>IntroJS</title>
+    <link rel="stylesheet" href="node_modules/intro.js/introjs.css">
+    <link rel="stylesheet" href="src/css/customEP2.css">
+
+</head>
+<body id="end">
+    <h1 id="introduction">Toto je testovanie knižnice IntroJS</h1>
+    <div id="leftSide" style="width: 20%; float:left">
+        <button type="button" class="myButton" id="startGuide">Guide</button><br>
+        <button type="button" class="myButton" id="nextPage" onclick="location.href='http://localhost:63342/bp4/nextPage.html?_ijt=p6hnrul55hqc40jjtr0vc24eej'">Next page</button>
+    </div>
+
+    <div id="rightSide" style="width: 80%; float:right">
+        <div id="inputs">
+            <div id="step-one">
+                <label for="valueX">Hodnota X</label><br>
+                <input  id="valueX" class="inputStyle" type="number">
+            </div>
+
+            <div id="step-two">
+                <label for="valueY">Hodnota Y</label><br>
+                <input  id="valueY" class="inputStyle" type="number">
+            </div>
+        </div>
+
+        <button type="button" class="myButton" id="compute">Compute</button>
+
+        <div>
+            <textarea id="result">
+
+            </textarea>
+        </div>
+
+    </div>
+    <script src="node_modules/intro.js/intro.js"></script>
+    <script src="src/scripts/js/guideEP2.js"></script>
+</body>
+</html>
