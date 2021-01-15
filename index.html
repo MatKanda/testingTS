@@ -1,46 +1,52 @@
 <!DOCTYPE html>
-<html lang="sk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>IntroJS</title>
-    <link rel="stylesheet" href="node_modules/intro.js/minified/introjs.min.css">
-    <link rel="stylesheet" href="node_modules/intro.js/minified/introjs-rtl.min.css">
+    <title>Custom Intro</title>
     <link rel="stylesheet" href="src/css/custom.css">
-
 </head>
-
-
-<body>
-    <h1 id="introduction">Náročná výpočtová logika</h1>
-    <div class="inputs">
-
-        <div id="step-one">
-        <label for="valueX">Zadajte hodnotu X</label><br>
-        <input  id="valueX" class="inputStyle" type="number" min="1" max="9" step="1" placeholder="0" onchange="checkValueX()" onkeydown="if(event.key==='.' || event.key===','){event.preventDefault();}"><br>
-        <p id="errorX" style="display: none; color: red; margin-top: -3em; padding-bottom: 1em">Nesprávne číslo</p>
+<body id="body">
+    <h1>Pokus o vlastnú intro library</h1>
+    <h2>za využitia custom data attributes</h2>
+    <div id="leftSide">
+        <button id="menu1" type="button" data-guide="true" data-guide-color="red">Menu 1</button><br>
+        <button id="menu2" type="button">Menu 2</button><br>
+        <button id="menu3" type="button" data-guide="true" data-guide-color="green">Menu 3</button><br>
+        <button id="menu4" type="button">Menu 4</button><br>
+        <button id="menu5" type="button" data-guide="true" data-guide-color="green">Menu 5</button><br>
+        <button id="menu6" type="button">Menu 6</button><br>
+        <button id="menu7" type="button">Menu 7</button><br>
+        <button id="guide" type="button" data-guide="true" data-guide-color="red">Guide</button>
+    </div>
+    <div id="rightSide">
+        <div id="searchDiv" data-guide="true" data-guide-color="red">
+            <input type="text" placeholder="Search...">
         </div>
 
-        <div id="step-two">
-        <label for="valueY">Zadajte hodnotu Y</label><br>
-        <input id="valueY" class="inputStyle" type="number" min="1" max="9" step="1" placeholder="0" onchange="checkValueY()" onkeydown="if(event.key==='.' || event.key===','){event.preventDefault();}">
-        <p id="errorY" style="display: none; color: red; margin-top: -3em; padding-bottom: 1em">Nesprávne číslo</p>
-        </div>
+        <article class="articleText">
+            <h3 class="guide" data-guide="true" data-guide-color="red">Article title</h3>
+            <span class="guide" data-guide="true" data-guide-color="green">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+            </span>
+        </article>
+
+        <article >
+            <h3>Last one</h3>
+            <span class="guide" data-guide="true" data-guide-color="red">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+            </span>
+        </article>
 
     </div>
 
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-        <table id="table">
-        </table>
-        <button id="exitButton" onclick="exitFromTable()">X</button>
-    </div>
+    <footer>
+        <span>Created by: Matuš Kanda</span>
+    </footer>
 
-    <button id="step-three" class="myButton" type="button" onclick="showTable()">Odoslať</button>
-
-    <button id="startTutorial" class="myButton" type="button">Guide</button>
-
-    <script src="src/scripts/js/custom.js"></script>
-    <script src="node_modules/intro.js/minified/intro.min.js"></script>
-    <script src="src/scripts/js/guide.js"></script>
+<script src="src/js/custom.js"></script>
 </body>
 </html>
