@@ -70,27 +70,79 @@ function guideV2(){
         }
 }
 
-//funguje na vyhladanie data a setnutie borderu
+
 function guideV3() {
     // document.getElementById("body").style.opacity="0.5";
     var currentNode, ni = document.createNodeIterator(document.documentElement, NodeFilter.SHOW_ELEMENT);
-    //vyskusat settimeout-obalit while
+
+    // while (currentNode = ni.nextNode()) {
+    //     if (currentNode.getAttribute("data-guide") === "true") {
+    //         createPopupDiv(currentNode)
+    //         break;
+    //     }
+    // }
+
+    //hint ako urobit aby to šlo po jednom a preklikavalo sa to cez next a prev buttons
+    //radšej prebehnut while a ulozit všetky elementy do pola odkial ich potom tahat cez indexy??? bolo by to jednoduche prehadzovanie poradia a lahsia praca ako vo while
+
     while (currentNode = ni.nextNode()) {
         if (currentNode.getAttribute("data-guide") === "true") {
-            setStyleForCurrentNode(currentNode,borderColor(currentNode.getAttribute("data-guide-color")));
-            // currentNode.style.opacity="1";
-            // createDiv(currentNode.getBoundingClientRect().top,currentNode.getBoundingClientRect().left);
-            console.log("name :"+currentNode.tagName,"top :"+currentNode.getBoundingClientRect().top , "left :"+currentNode.getBoundingClientRect().left);
+            // setStyleForCurrentNode(currentNode,borderColor(currentNode.getAttribute("data-guide-color")));
+            createPopupDiv(currentNode)
+            console.log(currentNode.offsetWidth);
         }
     }
 }
+
+function createPopupDiv(currentNode){
+    var currentNodeOffsetTop=currentNode.offsetTop+currentNode.offsetHeight;
+    var currentNodeOffsetLeft=currentNode.offsetLeft;
+
+    const newDiv = document.createElement("div");
+
+    newDiv.style.position="absolute";
+    newDiv.style.borderRadius="20px";
+    newDiv.style.top=currentNodeOffsetTop+'px';
+    newDiv.style.left=currentNodeOffsetLeft+'px';
+    newDiv.style.width="180px";
+    newDiv.style.height="auto";
+    newDiv.style.backgroundColor=currentNode.getAttribute("data-guide-color");
+
+
+    // const newContent = document.createTextNode("Sem pride nejaky text");
+    // newDiv.appendChild(newContent);
+
+    const newP = document.createElement("p");
+    newP.appendChild(document.createTextNode("Sem pride nejaky text"));
+    newP.style.marginLeft="12px";
+    newDiv.appendChild(newP);
+
+    const nextButton = document.createElement("button");
+    nextButton.appendChild(document.createTextNode("Next"));
+    nextButton.style.marginLeft="35px";
+    nextButton.style.display="inline-block";
+    nextButton.style.borderRadius="50px";
+    // nextButton.addEventListener('click',nextWindow());
+    newDiv.appendChild(nextButton);
+
+    const prevButton = document.createElement("button");
+    prevButton.appendChild(document.createTextNode("Prev"));
+    prevButton.style.marginLeft="15px";
+    prevButton.style.borderRadius="50px";
+    // nextButton.addEventListener('click',prevWindow());
+    newDiv.appendChild(prevButton);
+
+
+    document.body.appendChild(newDiv);
+}
+
 
 // document.getElementById("body").style.opacity="0.5";
 // document.getElementById("rightSide").style.cssText="opacity: 1; !important;";
 
 // document.getElementById("guide").addEventListener("click", guideV1);
 // document.getElementById("guide").addEventListener("click", guideV2);
-document.getElementById("guide").addEventListener("click", guideV3);    //funguje na vyhladanie data a setnutie borderu
+document.getElementById("guide").addEventListener("click", guideV3);
 
 function createDiv(top,left,nextNode){
     var div=document.createElement("div");
