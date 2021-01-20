@@ -97,19 +97,43 @@ function guideV3() {
 
 
 var elements=[];
-var currentIndex=0;
+var popupDivs=[];
+var currentElementsIndex=0;
+var currentPopupDivsIndex=0;
 var idCounter=1;
-function guideV4(){
+function guideInit(){
     var currentNode, ni = document.createNodeIterator(document.documentElement, NodeFilter.SHOW_ELEMENT);
-    while (currentNode = ni.nextNode()) {
-        if (currentNode.getAttribute("data-guide") === "true")
-            elements.push(currentNode);
 
+    //clear arrays and variables in case of another start of Guide function
+    while(elements.length > 0) {
+        elements.pop();
     }
-    console.log(elements);
-    createPopupDiv(elements[0]);
-    console.log(" currentIndex :"+currentIndex,"idCounter :"+idCounter);
+    while(popupDivs.length > 0) {
+        popupDivs.pop();
+    }
+    currentElementsIndex=0;
+    currentPopupDivsIndex=0;
+    idCounter=1;
+    while (currentNode = ni.nextNode()) {
+        if (currentNode.getAttribute("data-guide") === "true") {
+            elements.push(currentNode);
+            createPopupDiv(elements[currentElementsIndex]);
+            currentElementsIndex++;
+        }
+    }
+    popupDivs[currentPopupDivsIndex].style.display="block";
 }
+
+
+function guideV4(){
+    guideInit();
+
+
+    console.log(elements);
+    console.log(popupDivs);
+}
+
+
 document.getElementById("guide").addEventListener("click", guideV4);
 
 
@@ -119,9 +143,11 @@ function createPopupDiv(currentNode){
 
     const newDiv = document.createElement("div");
     newDiv.id="popupDiv"+idCounter;
+    popupDivs.push(newDiv);
     idCounter++;
     console.log("newDiv id :"+newDiv.id);
 
+    newDiv.style.display="none";
     newDiv.style.position="absolute";
     newDiv.style.borderRadius="20px";
     newDiv.style.top=currentNodeOffsetTop+'px';
@@ -145,14 +171,14 @@ function createPopupDiv(currentNode){
     nextButton.style.display="inline-block";
     nextButton.style.borderRadius="50px";
     nextButton.addEventListener('click',nextWindow=>{
-        if(currentIndex===0){
-            document.getElementById("popupDiv1").style.display="none";
-        }else{
-            document.getElementById("popupDiv"+(idCounter-1)).style.display="none";
+        if(currentPopupDivsIndex>=popupDivs.length-1) {
+            alert("koniec");
+            popupDivs[currentPopupDivsIndex++].style.display="none";
+        }else {
+            popupDivs[currentPopupDivsIndex++].style.display = "none";
+            popupDivs[currentPopupDivsIndex].style.display = "block";
         }
-        currentIndex++;
-        createPopupDiv(elements[currentIndex]);
-        console.log(" currentIndex :"+currentIndex,"idCounter :"+idCounter);
+        console.log("current div index "+currentPopupDivsIndex);
     });
     newDiv.appendChild(nextButton);
 
@@ -161,14 +187,14 @@ function createPopupDiv(currentNode){
     prevButton.style.marginLeft="15px";
     prevButton.style.borderRadius="50px";
     prevButton.addEventListener('click',prevWindow=>{
-        if(currentIndex===1){
-            document.getElementById("popupDiv2").style.display="none";
-        }else{
-            document.getElementById("popupDiv"+(idCounter-1)).style.display="none";
+        if(currentPopupDivsIndex<1) {
+            alert("koniec");
+            popupDivs[currentPopupDivsIndex--].style.display="none";
+        }else {
+            popupDivs[currentPopupDivsIndex--].style.display = "none";
+            popupDivs[currentPopupDivsIndex].style.display = "block";
         }
-        currentIndex--;
-        createPopupDiv(elements[currentIndex]);
-        console.log(" currentIndex :"+currentIndex,"idCounter :"+idCounter);
+        console.log("current div index "+currentPopupDivsIndex);
     });
     newDiv.appendChild(prevButton);
 
