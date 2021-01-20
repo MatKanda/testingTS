@@ -58,16 +58,16 @@ function guideV2(){
             if (document.getElementById(currentNode.id)) {
                 setBorderStyleByID(currentNode.id,borderColor(currentNode.getAttribute("data-guide-color")));
                 // document.getElementById(currentNode.id).style.opacity="1";
-             } else {
-                 var i = 0;
+            } else {
+                var i = 0;
                 while (document.getElementsByClassName(currentNode.className)[i]) {
                     setBorderStyleByClassName(currentNode.className,i,borderColor(currentNode.getAttribute("data-guide-color")));
                     console.log("current node "+currentNode.className[i].name);
                     i++;
                 }
             }
-            }
         }
+    }
 }
 
 
@@ -93,12 +93,34 @@ function guideV3() {
         }
     }
 }
+// document.getElementById("guide").addEventListener("click", guideV3);
+
+
+var elements=[];
+var currentIndex=0;
+var idCounter=1;
+function guideV4(){
+    var currentNode, ni = document.createNodeIterator(document.documentElement, NodeFilter.SHOW_ELEMENT);
+    while (currentNode = ni.nextNode()) {
+        if (currentNode.getAttribute("data-guide") === "true")
+            elements.push(currentNode);
+
+    }
+    console.log(elements);
+    createPopupDiv(elements[0]);
+    console.log(" currentIndex :"+currentIndex,"idCounter :"+idCounter);
+}
+document.getElementById("guide").addEventListener("click", guideV4);
+
 
 function createPopupDiv(currentNode){
     var currentNodeOffsetTop=currentNode.offsetTop+currentNode.offsetHeight;
     var currentNodeOffsetLeft=currentNode.offsetLeft;
 
     const newDiv = document.createElement("div");
+    newDiv.id="popupDiv"+idCounter;
+    idCounter++;
+    console.log("newDiv id :"+newDiv.id);
 
     newDiv.style.position="absolute";
     newDiv.style.borderRadius="20px";
@@ -122,14 +144,32 @@ function createPopupDiv(currentNode){
     nextButton.style.marginLeft="35px";
     nextButton.style.display="inline-block";
     nextButton.style.borderRadius="50px";
-    // nextButton.addEventListener('click',nextWindow());
+    nextButton.addEventListener('click',nextWindow=>{
+        if(currentIndex===0){
+            document.getElementById("popupDiv1").style.display="none";
+        }else{
+            document.getElementById("popupDiv"+(idCounter-1)).style.display="none";
+        }
+        currentIndex++;
+        createPopupDiv(elements[currentIndex]);
+        console.log(" currentIndex :"+currentIndex,"idCounter :"+idCounter);
+    });
     newDiv.appendChild(nextButton);
 
     const prevButton = document.createElement("button");
     prevButton.appendChild(document.createTextNode("Prev"));
     prevButton.style.marginLeft="15px";
     prevButton.style.borderRadius="50px";
-    // nextButton.addEventListener('click',prevWindow());
+    prevButton.addEventListener('click',prevWindow=>{
+        if(currentIndex===1){
+            document.getElementById("popupDiv2").style.display="none";
+        }else{
+            document.getElementById("popupDiv"+(idCounter-1)).style.display="none";
+        }
+        currentIndex--;
+        createPopupDiv(elements[currentIndex]);
+        console.log(" currentIndex :"+currentIndex,"idCounter :"+idCounter);
+    });
     newDiv.appendChild(prevButton);
 
 
@@ -137,12 +177,7 @@ function createPopupDiv(currentNode){
 }
 
 
-// document.getElementById("body").style.opacity="0.5";
-// document.getElementById("rightSide").style.cssText="opacity: 1; !important;";
 
-// document.getElementById("guide").addEventListener("click", guideV1);
-// document.getElementById("guide").addEventListener("click", guideV2);
-document.getElementById("guide").addEventListener("click", guideV3);
 
 function createDiv(top,left,nextNode){
     var div=document.createElement("div");
