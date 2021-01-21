@@ -98,9 +98,9 @@ function guideV3() {
 
 var elements=[];
 var popupDivs=[];
-var currentElementsIndex=0;
-var currentPopupDivsIndex=0;
-var idCounter=1;
+var currentElementsIndex;
+var currentPopupDivsIndex;
+var idCounter;
 function guideInit(){
     var currentNode, ni = document.createNodeIterator(document.documentElement, NodeFilter.SHOW_ELEMENT);
 
@@ -146,6 +146,7 @@ function createPopupDiv(currentNode){
     popupDivs.push(newDiv);
     idCounter++;
     console.log("newDiv id :"+newDiv.id);
+
 
     newDiv.style.display="none";
     newDiv.style.position="absolute";
@@ -197,7 +198,6 @@ function createPopupDiv(currentNode){
         console.log("current div index "+currentPopupDivsIndex);
     });
     newDiv.appendChild(prevButton);
-
 
     document.body.appendChild(newDiv);
 }
