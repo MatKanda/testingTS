@@ -96,9 +96,11 @@ function guideV3() {
 // document.getElementById("guide").addEventListener("click", guideV3);
 
 
+
+//prva funkčna verzia (bez rozdelenia poradia steps a message ako inputu)
 var elements=[];
 var popupDivs=[];
-var currentElementsIndex;
+var numberOfElements;
 var currentPopupDivsIndex;
 var idCounter;
 function guideInit(){
@@ -111,14 +113,15 @@ function guideInit(){
     while(popupDivs.length > 0) {
         popupDivs.pop();
     }
-    currentElementsIndex=0;
+    numberOfElements=0;
     currentPopupDivsIndex=0;
     idCounter=1;
+
     while (currentNode = ni.nextNode()) {
         if (currentNode.getAttribute("data-guide") === "true") {
             elements.push(currentNode);
-            createPopupDiv(elements[currentElementsIndex]);
-            currentElementsIndex++;
+            createPopupDiv(elements[numberOfElements]);
+            numberOfElements++;
         }
     }
     popupDivs[currentPopupDivsIndex].style.display="block";
@@ -128,19 +131,13 @@ function guideInit(){
 function guideV4(){
     guideInit();
 
-
-    console.log(elements);
-    console.log(popupDivs);
 }
 
 
-document.getElementById("guide").addEventListener("click", guideV4);
+// document.getElementById("guide").addEventListener("click", guideV4);
 
 
 function createPopupDiv(currentNode){
-    var currentNodeOffsetTop=currentNode.offsetTop+currentNode.offsetHeight;
-    var currentNodeOffsetLeft=currentNode.offsetLeft;
-
     const newDiv = document.createElement("div");
     newDiv.id="popupDiv"+idCounter;
     popupDivs.push(newDiv);
@@ -148,21 +145,22 @@ function createPopupDiv(currentNode){
     console.log("newDiv id :"+newDiv.id);
 
 
-    newDiv.style.display="none";
-    newDiv.style.position="absolute";
-    newDiv.style.borderRadius="20px";
-    newDiv.style.top=currentNodeOffsetTop+'px';
-    newDiv.style.left=currentNodeOffsetLeft+'px';
-    newDiv.style.width="180px";
-    newDiv.style.height="auto";
-    newDiv.style.backgroundColor=currentNode.getAttribute("data-guide-color");
+    setStyle(newDiv,currentNode);
+    // newDiv.style.display="none";
+    // newDiv.style.position="absolute";
+    // newDiv.style.borderRadius="20px";
+    // newDiv.style.top=currentNodeOffsetTop+'px';
+    // newDiv.style.left=currentNodeOffsetLeft+'px';
+    // newDiv.style.width="180px";
+    // newDiv.style.height="auto";
+    // newDiv.style.backgroundColor="grey";
 
 
     // const newContent = document.createTextNode("Sem pride nejaky text");
     // newDiv.appendChild(newContent);
 
     const newP = document.createElement("p");
-    newP.appendChild(document.createTextNode("Sem pride nejaky text"));
+    newP.appendChild(document.createTextNode("Sem pride nejaky textaaaaaaaaa"));
     newP.style.marginLeft="12px";
     newDiv.appendChild(newP);
 
@@ -179,7 +177,7 @@ function createPopupDiv(currentNode){
             popupDivs[currentPopupDivsIndex++].style.display = "none";
             popupDivs[currentPopupDivsIndex].style.display = "block";
         }
-        console.log("current div index "+currentPopupDivsIndex);
+        // console.log("current div index "+currentPopupDivsIndex);
     });
     newDiv.appendChild(nextButton);
 
@@ -195,48 +193,86 @@ function createPopupDiv(currentNode){
             popupDivs[currentPopupDivsIndex--].style.display = "none";
             popupDivs[currentPopupDivsIndex].style.display = "block";
         }
-        console.log("current div index "+currentPopupDivsIndex);
+        // console.log("current div index "+currentPopupDivsIndex);
     });
     newDiv.appendChild(prevButton);
 
     document.body.appendChild(newDiv);
 }
 
+function setStyle(div,currentNode){
+    var position=currentNode.getAttribute("data-guide-position");
+    console.log(position);
+    div.style.display="none";
+    div.style.position="absolute";
+    div.style.borderRadius="20px";
+    div.style.maxWidth="50%";
+    div.style.width="auto";
+    div.style.height="auto";
+    div.style.backgroundColor="grey";
 
+    if(position==="UL"){
+        div.style.top=currentNode.offsetTop-currentNode.offsetWidth+'px';
+        div.style.left=currentNode.offsetLeft+'px';
+    }
+    else if(position==="UR"){
+        div.style.top=currentNode.offsetTop-currentNode.offsetHeight+'px';
+        div.style.left=currentNode.offsetLeft+currentNode.offsetWidth+'px';
+    }
+    else if(position==="DR"){
+        div.style.top=currentNode.offsetTop+currentNode.offsetHeight+'px';
+        div.style.left=currentNode.offsetLeft+currentNode.offsetWidth+'px';
+    }
+    else{
+        div.style.top=currentNode.offsetTop+currentNode.offsetHeight+'px';
+        div.style.left=currentNode.offsetLeft+'px';
+    }
 
+}
 
-function createDiv(top,left,nextNode){
-    var div=document.createElement("div");
-    div.style.zIndex="10";
-    div.style.marginTop=top;
-    div.style.marginLeft=left;
-    div.style.width="10px";
-    div.style.height="10px";
-    div.style.backgroundColor="red";
+function guideInitV2(){
+    var currentNode, ni = document.createNodeIterator(document.documentElement, NodeFilter.SHOW_ELEMENT);
+
+    //clear arrays and variables in case of another start of Guide function
+    while(elements.length > 0) {
+        elements.pop();
+    }
+    while(popupDivs.length > 0) {
+        popupDivs.pop();
+    }
+    numberOfElements=0;
+    currentPopupDivsIndex=0;
+    idCounter=1;
+
+    var tmpArray=[];
+    while (currentNode = ni.nextNode()) {
+        if (currentNode.getAttribute("data-guide") === "true") {
+            tmpArray.push(currentNode);
+            numberOfElements++;
+        }
+    }
+    arrangeOrder(tmpArray);
+    for(var i=0;i<numberOfElements;i++)
+        createPopupDiv(elements[i]);
+
+    popupDivs[currentPopupDivsIndex].style.display="block";
+
+}
+
+function arrangeOrder(array){
+    console.log(array);
+    for (var i=1;i<=numberOfElements;i++)
+        for(var j=0;j<array.length;j++)
+            if (array[j].getAttribute("data-guide-step")===i.toString())
+                elements.push(array[j]);
+    console.log(elements);
 }
 
 
-function setBorderStyleByID(id,color){
-    document.getElementById(id).style.borderStyle="solid";
-    document.getElementById(id).style.borderWidth="3px";
-    document.getElementById(id).style.borderColor=color;
-
-}
-function setBorderStyleByClassName(className,i,color) {
-    document.getElementsByClassName(className)[i].style.borderStyle="solid";
-    document.getElementsByClassName(className)[i].style.borderWidth="3px";
-    document.getElementsByClassName(className)[i].style.borderColor=color;
+function guideV6(){
+    // document.getElementById("guide").disabled="true";
+    guideInitV2();
+    console.log(popupDivs);
 }
 
-function setStyleForCurrentNode(node,color){
-    node.style.borderStyle = "solid";
-    node.style.borderWidth = "3px";
-    node.style.borderColor = color;
-}
-
-function borderColor(color){
-    if(color==="green")
-        return "yellow";
-    else
-        return "red";
-}
+document.getElementById("guide").addEventListener("click", guideV6);
