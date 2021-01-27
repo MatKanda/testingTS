@@ -207,16 +207,18 @@ function setStyle(div,currentNode){
     div.style.position="absolute";
     div.style.borderRadius="20px";
     div.style.maxWidth="50%";
+    div.style.minWidth=currentNode.width+'px';
     div.style.width="auto";
     div.style.height="auto";
     div.style.backgroundColor="grey";
+    console.log("height "+div.height,"offsetheight " +div.offsetHeight)
 
     if(position==="UL"){
-        div.style.top=currentNode.offsetTop-currentNode.offsetWidth+'px';
+        div.style.top=currentNode.offsetTop-currentNode.offsetHeight*2+'px';
         div.style.left=currentNode.offsetLeft+'px';
     }
     else if(position==="UR"){
-        div.style.top=currentNode.offsetTop-currentNode.offsetHeight+'px';
+        div.style.top=currentNode.offsetTop-currentNode.offsetHeight*2+'px';
         div.style.left=currentNode.offsetLeft+currentNode.offsetWidth+'px';
     }
     else if(position==="DR"){
