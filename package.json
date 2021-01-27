@@ -8,6 +8,7 @@
     "build": "webpack",
     "run": "webpack-dev-server"
   },
+
   "keywords": [],
   "author": "Matus Kanda",
   "license": "ISC",

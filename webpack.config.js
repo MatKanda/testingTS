@@ -12,6 +12,7 @@ module.exports = {
         contentBase: path.resolve(__dirname, "dist")
     },
 
+
     optimization: {
         minimize: false
     },
