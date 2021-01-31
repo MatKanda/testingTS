@@ -142,25 +142,13 @@ function createPopupDiv(currentNode){
     newDiv.id="popupDiv"+idCounter;
     popupDivs.push(newDiv);
     idCounter++;
-    console.log("newDiv id :"+newDiv.id);
-
+    // console.log("newDiv id :"+newDiv.id);
 
     setStyle(newDiv,currentNode);
-    // newDiv.style.display="none";
-    // newDiv.style.position="absolute";
-    // newDiv.style.borderRadius="20px";
-    // newDiv.style.top=currentNodeOffsetTop+'px';
-    // newDiv.style.left=currentNodeOffsetLeft+'px';
-    // newDiv.style.width="180px";
-    // newDiv.style.height="auto";
-    // newDiv.style.backgroundColor="grey";
-
-
-    // const newContent = document.createTextNode("Sem pride nejaky text");
-    // newDiv.appendChild(newContent);
 
     const newP = document.createElement("p");
-    newP.appendChild(document.createTextNode("Sem pride nejaky textaaaaaaaaa"));
+    // newP.appendChild(document.createTextNode("Sem pride nejaky textaaaaaaa aaaaa asasasa asas a sas a sas asasa as as "));
+    newP.appendChild(document.createTextNode(currentNode.getAttribute("data-guide-message")));
     newP.style.marginLeft="12px";
     newDiv.appendChild(newP);
 
@@ -177,7 +165,6 @@ function createPopupDiv(currentNode){
             popupDivs[currentPopupDivsIndex++].style.display = "none";
             popupDivs[currentPopupDivsIndex].style.display = "block";
         }
-        // console.log("current div index "+currentPopupDivsIndex);
     });
     newDiv.appendChild(nextButton);
 
@@ -193,7 +180,6 @@ function createPopupDiv(currentNode){
             popupDivs[currentPopupDivsIndex--].style.display = "none";
             popupDivs[currentPopupDivsIndex].style.display = "block";
         }
-        // console.log("current div index "+currentPopupDivsIndex);
     });
     newDiv.appendChild(prevButton);
 
@@ -206,24 +192,26 @@ function setStyle(div,currentNode){
     div.style.display="none";
     div.style.position="absolute";
     div.style.borderRadius="20px";
-    div.style.maxWidth="50%";
-    div.style.minWidth=currentNode.width+'px';
+    div.style.maxWidth="25%";
     div.style.width="auto";
     div.style.height="auto";
-    div.style.backgroundColor="grey";
-    console.log("height "+div.height,"offsetheight " +div.offsetHeight)
+    div.style.backgroundColor="lightcoral";
+    div.style.zIndex="200";
+    div.style.opacity="1";
 
-    if(position==="UL"){
-        div.style.top=currentNode.offsetTop-currentNode.offsetHeight*2+'px';
+
+
+    if(position==="U"){
+        div.style.top=currentNode.offsetTop-currentNode.offsetHeight+'px';
         div.style.left=currentNode.offsetLeft+'px';
     }
-    else if(position==="UR"){
-        div.style.top=currentNode.offsetTop-currentNode.offsetHeight*2+'px';
+    else if(position==="R"){
+        div.style.top=currentNode.offsetTop-currentNode.offsetHeight/2+'px';
         div.style.left=currentNode.offsetLeft+currentNode.offsetWidth+'px';
     }
-    else if(position==="DR"){
-        div.style.top=currentNode.offsetTop+currentNode.offsetHeight+'px';
-        div.style.left=currentNode.offsetLeft+currentNode.offsetWidth+'px';
+    else if(position==="L"){
+        div.style.top=currentNode.offsetTop-currentNode.offsetHeight/2+'px';
+        div.style.left=currentNode.offsetLeft-div.offsetWidth+'px';
     }
     else{
         div.style.top=currentNode.offsetTop+currentNode.offsetHeight+'px';
@@ -259,6 +247,7 @@ function guideInitV2(){
 
     popupDivs[currentPopupDivsIndex].style.display="block";
 
+    // document.getElementById("body").style.backgroundColor="#3e4444";
 }
 
 function arrangeOrder(array){
