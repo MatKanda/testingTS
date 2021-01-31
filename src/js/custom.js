@@ -144,13 +144,13 @@ function createPopupDiv(currentNode){
     idCounter++;
     // console.log("newDiv id :"+newDiv.id);
 
-    setStyle(newDiv,currentNode);
 
     const newP = document.createElement("p");
     // newP.appendChild(document.createTextNode("Sem pride nejaky textaaaaaaa aaaaa asasasa asas a sas a sas asasa as as "));
     newP.appendChild(document.createTextNode(currentNode.getAttribute("data-guide-message")));
     newP.style.marginLeft="12px";
     newDiv.appendChild(newP);
+
 
     const nextButton = document.createElement("button");
     nextButton.appendChild(document.createTextNode("Next"));
@@ -184,25 +184,27 @@ function createPopupDiv(currentNode){
     newDiv.appendChild(prevButton);
 
     document.body.appendChild(newDiv);
+
+    setStyle(newDiv,currentNode);
 }
 
 function setStyle(div,currentNode){
     var position=currentNode.getAttribute("data-guide-position");
     console.log(position);
-    div.style.display="none";
+    // div.style.display="none";
     div.style.position="absolute";
     div.style.borderRadius="20px";
-    div.style.maxWidth="25%";
+    div.style.maxWidth="20%";
     div.style.width="auto";
     div.style.height="auto";
     div.style.backgroundColor="lightcoral";
     div.style.zIndex="200";
     div.style.opacity="1";
 
-
+    console.log("div Height "+div.offsetHeight);
 
     if(position==="U"){
-        div.style.top=currentNode.offsetTop-currentNode.offsetHeight+'px';
+        div.style.top=currentNode.offsetTop-div.offsetHeight+'px';
         div.style.left=currentNode.offsetLeft+'px';
     }
     else if(position==="R"){
@@ -218,6 +220,7 @@ function setStyle(div,currentNode){
         div.style.left=currentNode.offsetLeft+'px';
     }
 
+    div.style.display="none";
 }
 
 function guideInitV2(){
