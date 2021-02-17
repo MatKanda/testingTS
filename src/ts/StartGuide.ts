@@ -16,6 +16,6 @@ document.getElementById("guide").addEventListener("click",function (){
         "Siesty element nejaky textaaaaaaa aaaaa asasasa asas a sas a sas asasa as as",
         "Siedmy element nejaky textaaaaaaa aaaaa asasasa asas a sas a sas asasa as as",
         "Osmy element nejaky textaaaaaaa aaaaa asasasa asas a sas a sas asasa as as"
-    ]
+    ];
     new StartGuide(messages);
 });
