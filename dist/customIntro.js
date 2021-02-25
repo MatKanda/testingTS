@@ -27,14 +27,10 @@ function guideInit() {
             tmpArray.push(currentNode);
             numberOfElements++;
         }
-        // if (currentNode.tagName==="BODY"){
-        //     currentNode.style.background = "rgba(0, 0, 0, 0.7)";
-        // }
-        // if(currentNode.style.getPropertyValue("background")!=="") {
-        //     currentNode.style.background = "rgba(0, 0, 0, 0.6)";
-        // }
+        if (currentNode.tagName === "BODY") {
+            currentNode.style.background = "rgba(0, 0, 0, 0.85)";
+        }
     }
-    document.getElementById("body").style.background = "rgba(0, 0, 0, 0.6)";
     arrangeOrder(tmpArray);
     for (var i = 0; i < numberOfElements; i++)
         createPopupDiv(elements[i]);
@@ -71,8 +67,31 @@ function createPopupDiv(currentNode) {
             popupDivs[currentPopupDivsIndex++].style.display = "none";
         }
         else {
-            popupDivs[currentPopupDivsIndex++].style.display = "none";
+            // popupDivs[currentPopupDivsIndex++].style.display = "none";  //
+            // @ts-ignore
+            $(popupDivs[currentPopupDivsIndex]).animate({
+                opacity: 0.0
+            }, 1000);
+            var start = [40, 40, 40, 0], end = [255, 255, 255, 1];
+            //@ts-ignore
+            $(elements[currentPopupDivsIndex + 1]).animate({ 'aaa': 1 }, {
+                duration: 1000, step: function (now) {
+                    //@ts-ignore
+                    $(this).css('background-color', 'rgba(' + //@ts-ignore
+                        parseInt(start[0] + (end[0] - start[0]) * now) + ',' + //@ts-ignore
+                        parseInt(start[1] + (end[1] - start[1]) * now) + ',' + //@ts-ignore
+                        parseInt(start[2] + (end[2] - start[2]) * now) + ')'); //@ts-ignore
+                }
+            });
+            setTimeout(function () { popupDivs[currentPopupDivsIndex - 1].style.display = "none"; }, 1000);
+            currentPopupDivsIndex++;
             popupDivs[currentPopupDivsIndex].style.display = "block";
+            popupDivs[currentPopupDivsIndex].style.opacity = "0";
+            // @ts-ignore
+            $(popupDivs[currentPopupDivsIndex]).animate({
+                opacity: 1
+            }, 1000);
+            // popupDivs[currentPopupDivsIndex].style.display = "block"; //
         }
     });
     newDiv.appendChild(nextButton);
@@ -89,15 +108,27 @@ function createPopupDiv(currentNode) {
                 popupDivs[currentPopupDivsIndex--].style.display = "none";
             }
             else {
-                popupDivs[currentPopupDivsIndex--].style.display = "none";
+                // popupDivs[currentPopupDivsIndex--].style.display = "none";   //
+                // popupDivs[currentPopupDivsIndex].style.display = "block";   //
+                // @ts-ignore
+                $(popupDivs[currentPopupDivsIndex]).animate({
+                    opacity: 0.0
+                }, 1000);
+                setTimeout(function () { popupDivs[currentPopupDivsIndex + 1].style.display = "none"; }, 1000);
+                currentPopupDivsIndex--;
                 popupDivs[currentPopupDivsIndex].style.display = "block";
+                popupDivs[currentPopupDivsIndex].style.opacity = "0";
+                // @ts-ignore
+                $(popupDivs[currentPopupDivsIndex]).animate({
+                    opacity: 1
+                }, 1000);
             }
         });
         newDiv.appendChild(prevButton);
     }
     var progress = document.createElement("progress");
     progress.style.marginLeft = "5px";
-    progress.value = idCounter - 1;
+    progress.value = idCounter - 2;
     progress.max = elements.length;
     newDiv.appendChild(progress);
     document.body.appendChild(newDiv);
@@ -113,7 +144,7 @@ function setStyle(div, currentNode) {
     div.style.minWidth = "300px";
     div.style.width = "auto";
     div.style.height = "auto";
-    div.style.backgroundColor = "PaleTurquoise";
+    div.style.backgroundColor = "white";
     div.style.zIndex = "200";
     div.style.opacity = "1";
     console.log("div Height " + div.offsetHeight);
@@ -123,11 +154,11 @@ function setStyle(div, currentNode) {
     }
     else if (position === "R") {
         div.style.top = currentNode.offsetTop - currentNode.offsetHeight / 2 + 'px';
-        div.style.left = currentNode.offsetLeft + currentNode.offsetWidth + 'px';
+        div.style.left = currentNode.offsetLeft + currentNode.offsetWidth + 1 + 'px';
     }
     else if (position === "L") {
         div.style.top = currentNode.offsetTop - currentNode.offsetHeight / 2 + 'px';
-        div.style.left = currentNode.offsetLeft - div.offsetWidth + 'px';
+        div.style.left = currentNode.offsetLeft - div.offsetWidth - 1 + 'px';
     }
     else {
         div.style.top = currentNode.offsetTop + currentNode.offsetHeight + 'px';

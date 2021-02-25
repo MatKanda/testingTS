@@ -269,4 +269,19 @@ function guideV6(){
     console.log(popupDivs);
 }
 
-document.getElementById("guide").addEventListener("click", guideV6);
+document.getElementById("guide").addEventListener("click", function (){
+    // document.getElementById("body").style.background="rgba(0,0,0,0.7)";
+    // document.getElementById("lele").style.background="rgba(255,255,255,1)";
+
+
+    //The only problem with this solution is IE<10 support
+    var start = [0, 0, 0,0.8], end=[255,255,255,1];
+    $('#lele').animate({'aaa': 1}, {
+        duration:1500,step: function(now){
+            $(this).css('background-color', 'rgba('+
+                parseInt(start[0] + (end[0]-start[0]) * now) + ',' +
+                parseInt(start[1] + (end[1]-start[1]) * now) + ',' +
+                parseInt(start[2] + (end[2]-start[2]) * now) + ')'
+            )
+        }, complete: function(){$(this).css('aaa', 0)}})
+});
