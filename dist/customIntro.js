@@ -3,8 +3,8 @@ var popupDivs = [];
 var numberOfElements;
 var currentPopupDivsIndex;
 var idCounter;
+var bodyElement;
 function guide() {
-    // document.getElementById("guide").disabled="true";
     guideInit();
     console.log(popupDivs);
 }
@@ -21,14 +21,24 @@ function guideInit() {
     numberOfElements = 0;
     currentPopupDivsIndex = 0;
     idCounter = 1;
+    var search;
     var tmpArray = [];
     while (currentNode = ni.nextNode()) {
         if (currentNode.getAttribute("data-guide") === "true") {
             tmpArray.push(currentNode);
             numberOfElements++;
+            currentNode.setAttribute("backGround", getComputedStyle(currentNode).getPropertyValue('backGround'));
+            currentNode.setAttribute("color", getComputedStyle(currentNode).getPropertyValue('color'));
+            currentNode.style.background = "rgba(255,255,255,0)";
+            currentNode.style.color = "#000000";
+        }
+        if (search === 1 && (currentNode.style.background || currentNode.style.backgroundColor)) {
+            currentNode.style.opacity = "0.3";
         }
         if (currentNode.tagName === "BODY") {
+            bodyElement = currentNode;
             currentNode.style.background = "rgba(0, 0, 0, 0.85)";
+            search = 1;
         }
     }
     arrangeOrder(tmpArray);
@@ -65,6 +75,12 @@ function createPopupDiv(currentNode) {
         if (currentPopupDivsIndex >= popupDivs.length - 1) {
             alert("koniec");
             popupDivs[currentPopupDivsIndex++].style.display = "none";
+            bodyElement.style.background = "rgba(255, 255, 255, 0)";
+            elements.forEach(function (element) {
+                element.style.background = element.getAttribute("background");
+                element.style.color = element.getAttribute("color");
+                element.style.opacity = "1";
+            });
         }
         else {
             // popupDivs[currentPopupDivsIndex++].style.display = "none";  //
@@ -72,17 +88,8 @@ function createPopupDiv(currentNode) {
             $(popupDivs[currentPopupDivsIndex]).animate({
                 opacity: 0.0
             }, 1000);
-            var start = [40, 40, 40, 0], end = [255, 255, 255, 1];
-            //@ts-ignore
-            $(elements[currentPopupDivsIndex + 1]).animate({ 'aaa': 1 }, {
-                duration: 1000, step: function (now) {
-                    //@ts-ignore
-                    $(this).css('background-color', 'rgba(' + //@ts-ignore
-                        parseInt(start[0] + (end[0] - start[0]) * now) + ',' + //@ts-ignore
-                        parseInt(start[1] + (end[1] - start[1]) * now) + ',' + //@ts-ignore
-                        parseInt(start[2] + (end[2] - start[2]) * now) + ')'); //@ts-ignore
-                }
-            });
+            animationShow(elements[currentPopupDivsIndex + 1]);
+            animationHide(elements[currentPopupDivsIndex]);
             setTimeout(function () { popupDivs[currentPopupDivsIndex - 1].style.display = "none"; }, 1000);
             currentPopupDivsIndex++;
             popupDivs[currentPopupDivsIndex].style.display = "block";
@@ -114,6 +121,8 @@ function createPopupDiv(currentNode) {
                 $(popupDivs[currentPopupDivsIndex]).animate({
                     opacity: 0.0
                 }, 1000);
+                animationShow(elements[currentPopupDivsIndex - 1]);
+                animationHide(elements[currentPopupDivsIndex]);
                 setTimeout(function () { popupDivs[currentPopupDivsIndex + 1].style.display = "none"; }, 1000);
                 currentPopupDivsIndex--;
                 popupDivs[currentPopupDivsIndex].style.display = "block";
@@ -134,6 +143,55 @@ function createPopupDiv(currentNode) {
     document.body.appendChild(newDiv);
     setStyle(newDiv, currentNode);
 }
+function parseColor(input) {
+    if (input.substr(0, 1) == "#") {
+        var collen = (input.length - 1) / 3;
+        var fact = [17, 1, 0.062272][collen - 1];
+        return [
+            Math.round(parseInt(input.substr(1, collen), 16) * fact),
+            Math.round(parseInt(input.substr(1 + collen, collen), 16) * fact),
+            Math.round(parseInt(input.substr(1 + 2 * collen, collen), 16) * fact)
+        ];
+    }
+    else
+        return input.split("(")[1].split(")")[0].split(",").map(function (x) { return +x; });
+}
+function animationShow(element) {
+    // var first=parseColor(element.getAttribute("color"))[0];
+    // var second=parseColor(element.getAttribute("color"))[1];
+    // var third=parseColor(element.getAttribute("color"))[2];
+    // console.log("atribut" ,first," ",second," ",third);
+    // var start = [40,40,40,0], end=[255,255,255,1];
+    var start = [40, 40, 40, 0], end = [255, 255, 255, 1];
+    //@ts-ignore
+    $(element).animate({ 'aaa': 1 }, {
+        duration: 1000, step: function (now) {
+            //@ts-ignore
+            $(this).css('background-color', 'rgba(' + //@ts-ignore
+                parseInt(start[0] + (end[0] - start[0]) * now) + ',' + //@ts-ignore
+                parseInt(start[1] + (end[1] - start[1]) * now) + ',' + //@ts-ignore
+                parseInt(start[2] + (end[2] - start[2]) * now) + ')'); //@ts-ignore
+        }
+    });
+}
+function animationHide(element) {
+    // var first=parseColor(element.getAttribute("color"))[0];
+    // var second=parseColor(element.getAttribute("color"))[1];
+    // var third=parseColor(element.getAttribute("color"))[2];
+    //
+    // // var start = [40,40,40,0], end=[255,255,255,1];
+    var start = [40, 40, 40, 0], end = [255, 255, 255, 1];
+    //@ts-ignore
+    $(element).animate({ 'aaa': 0 }, {
+        duration: 1000, step: function (now) {
+            //@ts-ignore
+            $(this).css('background-color', 'rgba(' + //@ts-ignore
+                parseInt(start[0] + (end[0] - start[0]) * now) + ',' + //@ts-ignore
+                parseInt(start[1] + (end[1] - start[1]) * now) + ',' + //@ts-ignore
+                parseInt(start[2] + (end[2] - start[2]) * now) + ')'); //@ts-ignore
+        }
+    });
+}
 function setStyle(div, currentNode) {
     var position = currentNode.getAttribute("data-guide-position");
     console.log(position);
@@ -147,7 +205,6 @@ function setStyle(div, currentNode) {
     div.style.backgroundColor = "white";
     div.style.zIndex = "200";
     div.style.opacity = "1";
-    console.log("div Height " + div.offsetHeight);
     if (position === "U") {
         div.style.top = currentNode.offsetTop - div.offsetHeight + 'px';
         div.style.left = currentNode.offsetLeft + 'px';

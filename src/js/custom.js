@@ -269,19 +269,53 @@ function guideV6(){
     console.log(popupDivs);
 }
 
-document.getElementById("guide").addEventListener("click", function (){
+// document.getElementById("guide").addEventListener("click", function (){
     // document.getElementById("body").style.background="rgba(0,0,0,0.7)";
     // document.getElementById("lele").style.background="rgba(255,255,255,1)";
 
 
     //The only problem with this solution is IE<10 support
-    var start = [0, 0, 0,0.8], end=[255,255,255,1];
-    $('#lele').animate({'aaa': 1}, {
-        duration:1500,step: function(now){
-            $(this).css('background-color', 'rgba('+
-                parseInt(start[0] + (end[0]-start[0]) * now) + ',' +
-                parseInt(start[1] + (end[1]-start[1]) * now) + ',' +
-                parseInt(start[2] + (end[2]-start[2]) * now) + ')'
+//     var start = [0, 0, 0,0.8], end=[255,255,255,1];
+//     $('#lele').animate({'aaa': 1}, {
+//         duration:1500,step: function(now){
+//             $(this).css('background-color', 'rgba('+
+//                 parseInt(start[0] + (end[0]-start[0]) * now) + ',' +
+//                 parseInt(start[1] + (end[1]-start[1]) * now) + ',' +
+//                 parseInt(start[2] + (end[2]-start[2]) * now) + ')'
+//             )
+//         }, complete: function(){$(this).css('aaa', 0)}})
+// });
+
+function parseColor(input) {
+    if (input.substr(0,1)=="#") {
+        var collen=(input.length-1)/3;
+        var fact=[17,1,0.062272][collen-1];
+        return [
+            Math.round(parseInt(input.substr(1,collen),16)*fact),
+            Math.round(parseInt(input.substr(1+collen,collen),16)*fact),
+            Math.round(parseInt(input.substr(1+2*collen,collen),16)*fact)
+        ];
+    }
+    else return input.split("(")[1].split(")")[0].split(",").map(x=>+x);
+}
+
+// console.log(getComputedStyle(document.getElementById("lele")).getPropertyValue('backGround'));
+console.log(parseColor(getComputedStyle(document.getElementById("lele")).getPropertyValue('backGround')));
+
+var first=parseColor(getComputedStyle(document.getElementById("lele")).getPropertyValue('backGround'))[0];
+var second=parseColor(getComputedStyle(document.getElementById("lele")).getPropertyValue('backGround'))[1];
+var third=parseColor(getComputedStyle(document.getElementById("lele")).getPropertyValue('backGround'))[2];
+
+var start = [40,40,40,0], end=[first,second,third,1];
+document.addEventListener("click",function () {
+    $(document.getElementById("lele")).animate({'aaa': 1}, {
+        duration: 1000, step: function (now) {
+            $(this).css('background-color', 'rgba(' +
+                parseInt(start[0] + (end[0] - start[0]) * now) + ',' +
+                parseInt(start[1] + (end[1] - start[1]) * now) + ',' +
+                parseInt(start[2] + (end[2] - start[2]) * now) + ')'
             )
-        }, complete: function(){$(this).css('aaa', 0)}})
+        }
+    });
+
 });
