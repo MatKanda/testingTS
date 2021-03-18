@@ -4,10 +4,11 @@ var numberOfElements:number;
 var currentPopupDivsIndex:number;
 var idCounter:number;
 var bodyElement;
+var allHtmlElements=[];
 
 function guide(){
     guideInit();
-    console.log(popupDivs);
+    // console.log(popupDivs);
 }
 
 document.getElementById("guide").addEventListener("click", guide);
@@ -33,19 +34,22 @@ function guideInit(){
         if (currentNode.getAttribute("data-guide") === "true") {
             tmpArray.push(currentNode);
             numberOfElements++;
-            currentNode.setAttribute("backGround",getComputedStyle(currentNode).getPropertyValue('backGround'));
-            currentNode.setAttribute("color",getComputedStyle(currentNode).getPropertyValue('color'));
+        }
+
+        if (search===1){
+            allHtmlElements.push(currentNode);
+            currentNode.setAttribute("data-backGround",getComputedStyle(currentNode).getPropertyValue('backGround'));
+            currentNode.setAttribute("data-color",getComputedStyle(currentNode).getPropertyValue('color'));
             currentNode.style.background="rgba(255,255,255,0)";
             currentNode.style.color="#000000";
         }
-         if (search===1 && (currentNode.style.background || currentNode.style.backgroundColor)){
-             currentNode.style.opacity="0.3";
-         }
+
         if (currentNode.tagName==="BODY"){
             bodyElement=currentNode;
             currentNode.style.background = "rgba(0, 0, 0, 0.85)";
             search=1;
         }
+
     }
 
     arrangeOrder(tmpArray);
@@ -53,15 +57,22 @@ function guideInit(){
         createPopupDiv(elements[i]);
 
     popupDivs[currentPopupDivsIndex].style.display="block";
+    popupDivs[currentPopupDivsIndex].style.opacity=0;
+    //@ts-ignore
+    $( popupDivs[currentPopupDivsIndex]).animate({
+        opacity:1
+    }, 1000 );
+    animationShow(elements[currentPopupDivsIndex]);
+
 }
 
 function arrangeOrder(array){
-    console.log(array);
+    // console.log(array);
     for (var i=1;i<=numberOfElements;i++)
         for(var j=0;j<array.length;j++)
             if (array[j].getAttribute("data-guide-step")===i.toString()) //problem s porovnanim bolo treba tostring
                 elements.push(array[j]);
-    console.log(elements);
+    // console.log(elements);
 }
 
 
@@ -71,9 +82,16 @@ function createPopupDiv(currentNode){
     popupDivs.push(newDiv);
     idCounter++;
 
+    var exitButton=document.createElement("button") as HTMLButtonElement;
+    exitButton.appendChild(document.createTextNode("X"));
+    exitButton.addEventListener("click",function (){finishGuide();});
+    newDiv.appendChild(exitButton);
+
     var newP=document.createElement("p") as HTMLParagraphElement;
     newP.appendChild(document.createTextNode(currentNode.getAttribute("data-guide-message")));
     newP.style.marginLeft="12px";
+    newP.style.marginRight="12px";
+    newP.style.marginTop="0";
     newDiv.appendChild(newP);
 
     var nextButton=document.createElement("button") as HTMLButtonElement;
@@ -83,20 +101,14 @@ function createPopupDiv(currentNode){
     else
         nextButton.appendChild(document.createTextNode("Next"));
 
-    nextButton.style.marginLeft="20px";
+    nextButton.style.marginLeft="17px";
     nextButton.style.display="inline-block";
     nextButton.style.borderRadius="50px";
 
     nextButton.addEventListener("click",nextWindow=>{
         if(currentPopupDivsIndex>=popupDivs.length-1) {
-            alert("koniec");
-            popupDivs[currentPopupDivsIndex++].style.display="none";
-            bodyElement.style.background = "rgba(255, 255, 255, 0)";
-            elements.forEach(function (element){
-                element.style.background=element.getAttribute("background");
-                element.style.color=element.getAttribute("color");
-                element.style.opacity="1";
-            });
+            // alert("koniec");
+            finishGuide();
         }else {
             // popupDivs[currentPopupDivsIndex++].style.display = "none";  //
 
@@ -107,11 +119,17 @@ function createPopupDiv(currentNode){
             }, 1000 );
 
 
-            animationShow(elements[currentPopupDivsIndex+1]);
+
             animationHide(elements[currentPopupDivsIndex]);
+            animationShow(elements[currentPopupDivsIndex+1]);
 
 
-            setTimeout(()=>{popupDivs[currentPopupDivsIndex-1].style.display = "none";},1000);
+            setTimeout(()=>{
+                if(currentPopupDivsIndex===0)
+                    popupDivs[0].style.display = "none";
+                else
+                    popupDivs[currentPopupDivsIndex-1].style.display = "none";
+                },1000);
 
 
             currentPopupDivsIndex++;
@@ -152,6 +170,7 @@ function createPopupDiv(currentNode){
                     opacity:0.0
                 }, 1000 );
 
+
                 animationShow(elements[currentPopupDivsIndex-1]);
                 animationHide(elements[currentPopupDivsIndex]);
 
@@ -180,21 +199,21 @@ function createPopupDiv(currentNode){
 
     document.body.appendChild(newDiv);
 
-    setStyle(newDiv,currentNode);
+    setStyle(newDiv,currentNode,exitButton);
 }
 
-function parseColor(input) {
-    if (input.substr(0,1)=="#") {
-        var collen=(input.length-1)/3;
-        var fact=[17,1,0.062272][collen-1];
-        return [
-            Math.round(parseInt(input.substr(1,collen),16)*fact),
-            Math.round(parseInt(input.substr(1+collen,collen),16)*fact),
-            Math.round(parseInt(input.substr(1+2*collen,collen),16)*fact)
-        ];
-    }
-    else return input.split("(")[1].split(")")[0].split(",").map(x=>+x);
-}
+// function parseColor(input) {
+//     if (input.substr(0,1)=="#") {
+//         var collen=(input.length-1)/3;
+//         var fact=[17,1,0.062272][collen-1];
+//         return [
+//             Math.round(parseInt(input.substr(1,collen),16)*fact),
+//             Math.round(parseInt(input.substr(1+collen,collen),16)*fact),
+//             Math.round(parseInt(input.substr(1+2*collen,collen),16)*fact)
+//         ];
+//     }
+//     else return input.split("(")[1].split(")")[0].split(",").map(x=>+x);
+// }
 
 
 function  animationShow(element){
@@ -203,6 +222,7 @@ function  animationShow(element){
     // var third=parseColor(element.getAttribute("color"))[2];
     // console.log("atribut" ,first," ",second," ",third);
 
+    console.log("showing element :"+element.id, "current popupDiv index : "+currentPopupDivsIndex);
     // var start = [40,40,40,0], end=[255,255,255,1];
     var start = [40,40,40,0], end=[255,255,255,1];
     //@ts-ignore
@@ -225,6 +245,7 @@ function animationHide(element){
     //
     // // var start = [40,40,40,0], end=[255,255,255,1];
     var start = [40,40,40,0], end=[255,255,255,1];
+    console.log("hiding element :"+element.id, "current popupDiv index : "+currentPopupDivsIndex);
 
     //@ts-ignore
     $(element).animate( {'aaa': 0},{
@@ -238,9 +259,9 @@ function animationHide(element){
         }});
 }
 
-function setStyle(div,currentNode){
+function setStyle(div,currentNode,exitButton){
     var position=currentNode.getAttribute("data-guide-position");
-    console.log(position);
+    // console.log(position);
     // div.style.display="none";    //problem v ziskani pozicie kedze som nastavil najprv display none a potom zistoval poziciu
     div.style.position="absolute";
     div.style.borderRadius="20px";
@@ -252,26 +273,52 @@ function setStyle(div,currentNode){
     div.style.zIndex="200";
     div.style.opacity="1";
 
+
+    exitButton.style.background="#ffffff"
+    exitButton.style.border="none";
+    exitButton.style.color="red";
+    exitButton.style.position="relative";
+
     if(position==="U"){
-        div.style.top=currentNode.offsetTop-div.offsetHeight+'px';
+        div.style.top=currentNode.offsetTop-div.offsetHeight-4+'px';
         div.style.left=currentNode.offsetLeft+'px';
+        exitButton.style.paddingTop="2%";
+        exitButton.style.left=div.offsetWidth-exitButton.offsetWidth+'px';
     }
     else if(position==="R"){
         div.style.top=currentNode.offsetTop-currentNode.offsetHeight/2+'px';
         div.style.left=currentNode.offsetLeft+currentNode.offsetWidth+1+'px';
+        exitButton.style.paddingTop="2%";
+        exitButton.style.left=div.offsetWidth-exitButton.offsetWidth+'px';
     }
     else if(position==="L"){
         div.style.top=currentNode.offsetTop-currentNode.offsetHeight/2+'px';
         div.style.left=currentNode.offsetLeft-div.offsetWidth-1+'px';
+        exitButton.style.paddingTop="2%";
+        exitButton.style.left=div.width+'px';
     }
     else{
-        div.style.top=currentNode.offsetTop+currentNode.offsetHeight+'px';
+        div.style.top=currentNode.offsetTop+currentNode.offsetHeight+1+'px';
         div.style.left=currentNode.offsetLeft+'px';
+        exitButton.style.paddingTop="2%";
+        exitButton.style.left=div.offsetWidth-exitButton.offsetWidth+'px';
     }
+
 
     div.style.display="none";
 }
 
+function finishGuide(){
+    popupDivs[currentPopupDivsIndex++].style.display="none";
+    bodyElement.style.background = "rgba(255, 255, 255, 0)";
+    allHtmlElements.forEach(function (element){
+        element.style.background=element.getAttribute("data-background");
+        element.style.color=element.getAttribute("data-color");
+        element.style.opacity="1";
+        element.removeAttribute("data-background");
+        element.removeAttribute("data-color");
+    });
+}
 
 
 //
