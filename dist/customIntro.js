@@ -6,11 +6,11 @@ var idCounter;
 var bodyElement;
 var allHtmlElements = [];
 function guide() {
-    guideInit();
-    // console.log(popupDivs);
+    var input = ["prva message", "druha message", "tretia message"];
+    guideInit(input);
 }
 document.getElementById("guide").addEventListener("click", guide);
-function guideInit() {
+function guideInit(input) {
     var currentNode, ni = document.createNodeIterator(document.documentElement, NodeFilter.SHOW_ELEMENT);
     //clear arrays and variables in case of another start of Guide function
     while (elements.length > 0) {
@@ -44,7 +44,7 @@ function guideInit() {
     }
     arrangeOrder(tmpArray);
     for (var i = 0; i < numberOfElements; i++)
-        createPopupDiv(elements[i]);
+        createPopupDiv(elements[i], input);
     popupDivs[currentPopupDivsIndex].style.display = "block";
     popupDivs[currentPopupDivsIndex].style.opacity = 0;
     //@ts-ignore
@@ -61,7 +61,7 @@ function arrangeOrder(array) {
                 elements.push(array[j]);
     // console.log(elements);
 }
-function createPopupDiv(currentNode) {
+function createPopupDiv(currentNode, inputMessage) {
     var newDiv = document.createElement("div"); //as htmldivelement lebo potrebujem použivat htmldivelement atributy
     newDiv.id = "popupDiv" + idCounter;
     popupDivs.push(newDiv);
@@ -71,7 +71,11 @@ function createPopupDiv(currentNode) {
     exitButton.addEventListener("click", function () { finishGuide(); });
     newDiv.appendChild(exitButton);
     var newP = document.createElement("p");
-    newP.appendChild(document.createTextNode(currentNode.getAttribute("data-guide-message")));
+    if (inputMessage[idCounter - 2] !== null && inputMessage[idCounter - 2] !== undefined)
+        newP.appendChild(document.createTextNode(inputMessage[idCounter - 2]));
+    else
+        newP.appendChild(document.createTextNode("NO MESSAGE WRITTEN"));
+    //newP.appendChild(document.createTextNode(currentNode.getAttribute("data-guide-message")));
     newP.style.marginLeft = "12px";
     newP.style.marginRight = "12px";
     newP.style.marginTop = "0";

@@ -7,14 +7,14 @@ var bodyElement;
 var allHtmlElements=[];
 
 function guide(){
-    guideInit();
-    // console.log(popupDivs);
+    var input=["prva message","druha message","tretia message"];
+    guideInit(input);
 }
 
 document.getElementById("guide").addEventListener("click", guide);
 
 
-function guideInit(){
+function guideInit(input){
     var currentNode, ni = document.createNodeIterator(document.documentElement, NodeFilter.SHOW_ELEMENT);
 
     //clear arrays and variables in case of another start of Guide function
@@ -54,7 +54,7 @@ function guideInit(){
 
     arrangeOrder(tmpArray);
     for(var i=0;i<numberOfElements;i++)
-        createPopupDiv(elements[i]);
+        createPopupDiv(elements[i],input);
 
     popupDivs[currentPopupDivsIndex].style.display="block";
     popupDivs[currentPopupDivsIndex].style.opacity=0;
@@ -76,7 +76,7 @@ function arrangeOrder(array){
 }
 
 
-function createPopupDiv(currentNode){
+function createPopupDiv(currentNode,inputMessage){
     var newDiv=document.createElement("div") as HTMLDivElement;   //as htmldivelement lebo potrebujem použivat htmldivelement atributy
     newDiv.id="popupDiv"+idCounter;
     popupDivs.push(newDiv);
@@ -88,7 +88,11 @@ function createPopupDiv(currentNode){
     newDiv.appendChild(exitButton);
 
     var newP=document.createElement("p") as HTMLParagraphElement;
-    newP.appendChild(document.createTextNode(currentNode.getAttribute("data-guide-message")));
+     if(inputMessage[idCounter-2]!==null && inputMessage[idCounter-2]!==undefined)
+        newP.appendChild(document.createTextNode(inputMessage[idCounter-2]));
+     else
+         newP.appendChild(document.createTextNode("NO MESSAGE WRITTEN"));
+    //newP.appendChild(document.createTextNode(currentNode.getAttribute("data-guide-message")));
     newP.style.marginLeft="12px";
     newP.style.marginRight="12px";
     newP.style.marginTop="0";
