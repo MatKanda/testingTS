@@ -6,8 +6,10 @@
   "keywords": [],
   "scripts": {
     "test": "karma start",
+    "lint": "tslint -p tsconfig.json",
     "build": "webpack --progress --color",
-    "run": "webpack-dev-server --color --open",
+    "watch": "webpack --watch",
+    "run": "webpack serve --color --open",
     "doc": "typedoc --out docs src/index.ts",
     "release": "npm run test && doc && build"
   },
