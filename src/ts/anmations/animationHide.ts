@@ -1,4 +1,4 @@
-import {currentPopupDivsIndex} from "../init/guideInit";
+import {currentPopupDivsIndex} from "../variables";
 
 export function animationHide(element){
     var start = [40,40,40,0], end=[255,255,255,1];

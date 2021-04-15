@@ -1,8 +1,4 @@
-import {popupDivs} from "../init/guideInit";
-// import {currentPopupDivsIndex} from "../init/guideInit";
-import {allHtmlElements} from "../init/guideInit";
-var currentPopupDivsIndex=require(currentPopupDivsIndex);
-import {bodyElement} from "../init/guideInit";
+import {popupDivs,currentPopupDivsIndex,bodyElement,allHtmlElements} from "../variables";
 
 export function finishGuide(){
     popupDivs[currentPopupDivsIndex++].style.display="none";

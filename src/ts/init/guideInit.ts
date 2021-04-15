@@ -1,15 +1,7 @@
 import {arrangeOrder} from "./arrangeOrder";
 import {createPopupDiv} from "../popupDiv";
 import {animationShow} from "../anmations";
-
-var elements: HTMLElement[] = [];
-var popupDivs: HTMLElement[] = [];
-var numberOfElements:number;
-var currentPopupDivsIndex:number;
-var idCounter:number;
-var bodyElement:HTMLElement;
-var allHtmlElements:HTMLElement[] = [];
-
+import {elements,popupDivs,numberOfElements,idCounter,currentPopupDivsIndex,bodyElement,allHtmlElements} from "../variables";
 
 export function guideInit(input){
     var currentNode, ni = document.createNodeIterator(document.documentElement, NodeFilter.SHOW_ELEMENT);
@@ -63,4 +55,3 @@ export function guideInit(input){
 
 }
 
-export {elements,popupDivs,numberOfElements,currentPopupDivsIndex,idCounter,bodyElement,allHtmlElements};

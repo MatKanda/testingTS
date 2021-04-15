@@ -2,6 +2,7 @@ import {animationHide} from "../anmations";
 import {animationShow} from "../anmations";
 import {finishGuide} from "../anmations";
 import {setStyle} from "./setStyle";
+import {idCounter,popupDivs,numberOfElements,currentPopupDivsIndex,elements} from "../variables";
 
 export function createPopupDiv(currentNode,inputMessage){
     var newDiv=document.createElement("div") as HTMLDivElement;   //as htmldivelement lebo potrebujem použivat htmldivelement atributy

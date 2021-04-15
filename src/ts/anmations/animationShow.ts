@@ -1,4 +1,4 @@
-import {currentPopupDivsIndex} from "../init/guideInit";
+import {currentPopupDivsIndex} from "../variables";
 
 export function  animationShow(element:HTMLElement){
     console.log("showing element :"+element.id, "current popupDiv index : "+currentPopupDivsIndex);

@@ -1,5 +1,4 @@
-import {numberOfElements} from "./guideInit";
-import {elements} from "./guideInit";
+import {numberOfElements,elements} from "../variables";
 
 export function arrangeOrder(array:HTMLElement[]){
     for (var i=1;i<=numberOfElements;i++)
