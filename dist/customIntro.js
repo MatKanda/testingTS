@@ -1,13 +1,14 @@
 var elements = [];
+//var popupDivs=[];
 var popupDivs = [];
 var numberOfElements;
 var currentPopupDivsIndex;
 var idCounter;
 var bodyElement;
 var allHtmlElements = [];
+var inputArray = ["prva message", "druha message", "tretia message"];
 function guide() {
-    var input = ["prva message", "druha message", "tretia message"];
-    guideInit(input);
+    guideInit(inputArray);
 }
 document.getElementById("guide").addEventListener("click", guide);
 function guideInit(input) {
@@ -22,14 +23,14 @@ function guideInit(input) {
     numberOfElements = 0;
     currentPopupDivsIndex = 0;
     idCounter = 1;
-    var search;
+    var search = false;
     var tmpArray = [];
     while (currentNode = ni.nextNode()) {
         if (currentNode.getAttribute("data-guide") === "true") {
             tmpArray.push(currentNode);
             numberOfElements++;
         }
-        if (search === 1) {
+        if (search === true) {
             allHtmlElements.push(currentNode);
             currentNode.setAttribute("data-backGround", getComputedStyle(currentNode).getPropertyValue('backGround'));
             currentNode.setAttribute("data-color", getComputedStyle(currentNode).getPropertyValue('color'));
@@ -39,14 +40,14 @@ function guideInit(input) {
         if (currentNode.tagName === "BODY") {
             bodyElement = currentNode;
             currentNode.style.background = "rgba(0, 0, 0, 0.85)";
-            search = 1;
+            search = true;
         }
     }
     arrangeOrder(tmpArray);
     for (var i = 0; i < numberOfElements; i++)
         createPopupDiv(elements[i], input);
     popupDivs[currentPopupDivsIndex].style.display = "block";
-    popupDivs[currentPopupDivsIndex].style.opacity = 0;
+    popupDivs[currentPopupDivsIndex].style.opacity = "0";
     //@ts-ignore
     $(popupDivs[currentPopupDivsIndex]).animate({
         opacity: 1
@@ -318,10 +319,10 @@ function finishGuide() {
 //     }
 //     createAllPopupDivs(messages) {
 //         for (var i = 0; i < this.numberOfElements; i++)
-//             this.createPopupDiv(this.elements[i],messages);
+//             this.popupDiv(this.elements[i],messages);
 //     }
 //
-//     createPopupDiv(currentNode,messages){
+//     popupDiv(currentNode,messages){
 //         var newDiv=document.createElement("div") as HTMLDivElement;   //as htmldivelement lebo potrebujem použivat htmldivelement atributy
 //         newDiv.id="popupDiv"+this.idCounter;
 //         this.popupDivs.push(newDiv);

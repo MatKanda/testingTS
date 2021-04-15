@@ -1,14 +1,16 @@
-var elements=[];
-var popupDivs=[];
+var elements: HTMLElement[] = [];
+//var popupDivs=[];
+var popupDivs: HTMLElement[] = [];
 var numberOfElements:number;
 var currentPopupDivsIndex:number;
 var idCounter:number;
-var bodyElement;
-var allHtmlElements=[];
+var bodyElement:HTMLElement;
+var allHtmlElements:HTMLElement[] = [];
+/*
+var inputArray=["prva message","druha message","tretia message"];
 
 function guide(){
-    var input=["prva message","druha message","tretia message"];
-    guideInit(input);
+    guideInit(inputArray);
 }
 
 document.getElementById("guide").addEventListener("click", guide);
@@ -28,7 +30,7 @@ function guideInit(input){
     currentPopupDivsIndex=0;
     idCounter=1;
 
-    var search:number;
+    var search:boolean=false;
     var tmpArray=[];
     while (currentNode = ni.nextNode()) {
         if (currentNode.getAttribute("data-guide") === "true") {
@@ -36,7 +38,7 @@ function guideInit(input){
             numberOfElements++;
         }
 
-        if (search===1){
+        if (search===true){
             allHtmlElements.push(currentNode);
             currentNode.setAttribute("data-backGround",getComputedStyle(currentNode).getPropertyValue('backGround'));
             currentNode.setAttribute("data-color",getComputedStyle(currentNode).getPropertyValue('color'));
@@ -47,7 +49,7 @@ function guideInit(input){
         if (currentNode.tagName==="BODY"){
             bodyElement=currentNode;
             currentNode.style.background = "rgba(0, 0, 0, 0.85)";
-            search=1;
+            search=true;
         }
 
     }
@@ -57,7 +59,7 @@ function guideInit(input){
         createPopupDiv(elements[i],input);
 
     popupDivs[currentPopupDivsIndex].style.display="block";
-    popupDivs[currentPopupDivsIndex].style.opacity=0;
+    popupDivs[currentPopupDivsIndex].style.opacity="0";
     //@ts-ignore
     $( popupDivs[currentPopupDivsIndex]).animate({
         opacity:1
@@ -66,7 +68,7 @@ function guideInit(input){
 
 }
 
-function arrangeOrder(array){
+function arrangeOrder(array:HTMLElement[]){
     // console.log(array);
     for (var i=1;i<=numberOfElements;i++)
         for(var j=0;j<array.length;j++)
@@ -220,7 +222,7 @@ function createPopupDiv(currentNode,inputMessage){
 // }
 
 
-function  animationShow(element){
+function  animationShow(element:HTMLElement){
     // var first=parseColor(element.getAttribute("color"))[0];
     // var second=parseColor(element.getAttribute("color"))[1];
     // var third=parseColor(element.getAttribute("color"))[2];
@@ -323,7 +325,7 @@ function finishGuide(){
         element.removeAttribute("data-color");
     });
 }
-
+*/
 
 //
 // class GuideInit{
@@ -380,10 +382,10 @@ function finishGuide(){
 //     }
 //     createAllPopupDivs(messages) {
 //         for (var i = 0; i < this.numberOfElements; i++)
-//             this.createPopupDiv(this.elements[i],messages);
+//             this.popupDiv(this.elements[i],messages);
 //     }
 //
-//     createPopupDiv(currentNode,messages){
+//     popupDiv(currentNode,messages){
 //         var newDiv=document.createElement("div") as HTMLDivElement;   //as htmldivelement lebo potrebujem použivat htmldivelement atributy
 //         newDiv.id="popupDiv"+this.idCounter;
 //         this.popupDivs.push(newDiv);

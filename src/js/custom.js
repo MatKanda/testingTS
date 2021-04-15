@@ -77,7 +77,7 @@ function guideV3() {
 
     // while (currentNode = ni.nextNode()) {
     //     if (currentNode.getAttribute("data-guide") === "true") {
-    //         createPopupDiv(currentNode)
+    //         popupDiv(currentNode)
     //         break;
     //     }
     // }
