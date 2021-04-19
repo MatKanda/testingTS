@@ -27,6 +27,6 @@ module.exports = {
         hot: true
     },
     plugins: [
-        new CleanWebpackPlugin({cleanStaleWebpackAssets: false}),
+        new CleanWebpackPlugin({cleanStaleWebpackAssets: false})
     ]
 }

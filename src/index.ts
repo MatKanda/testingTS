@@ -1,2 +1,4 @@
-export * from './GuideInit';
-export * from './start';
+export * from './startGuide';
+export * from './init';
+export * from './popupDiv';
+export * from './anmations';
