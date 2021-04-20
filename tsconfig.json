@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
+    "noImplicitAny": true,
     "declaration": true,
     "module": "ESNext",
-    "target": "es5",
+    "target": "ES5",
     "sourceMap": true,
     "outDir": "dist",
     "moduleResolution": "Node"
@@ -10,14 +11,10 @@
   "exclude": [
     "node_modules"
   ],
-//  "include": [
-//    "src/ts/**/*"
-//  ],
   "include": [
-    "src/ts/index.ts"
+    "src/**/*"
   ],
   "typedocOptions": {
-    "node": "modules",
     "out": "docs"
   }
 }
