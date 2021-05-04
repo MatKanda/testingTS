@@ -18,10 +18,10 @@ describe('DOM Testing for SEO Factors', function(){
 
 })
 
-describe('Moj pokus', function(){
-    var Guide=new Guide();
-    var h1=document.getElementsByTagName("h1")[0];
-    it('Check for Title', function(){
-        expect(h1).toBe("Pokus o vlastnú intro library")
-    })
-})
+// describe('Moj pokus', function(){
+//     var Guide=new Guide();
+//     var h1=document.getElementsByTagName("h1")[0];
+//     it('Check for Title', function(){
+//         expect(h1).toBe("Pokus o vlastnú intro library")
+//     })
+// })
