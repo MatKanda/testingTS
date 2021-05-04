@@ -6,7 +6,7 @@ var currentPopupDivsIndex:number;
 var idCounter:number;
 var bodyElement:HTMLElement;
 var allHtmlElements:HTMLElement[] = [];
-/*
+
 var inputArray=["prva message","druha message","tretia message"];
 
 function guide(){
@@ -325,7 +325,7 @@ function finishGuide(){
         element.removeAttribute("data-color");
     });
 }
-*/
+
 
 //
 // class GuideInit{

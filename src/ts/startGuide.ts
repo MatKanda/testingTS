@@ -6,6 +6,6 @@
 //
 // guide(["prva","druha","tretia","stvrta"]);
 
-export function testovacia(){
+/*export function testovacia(){
     console.log("nic nikdy nefunguje kurva");
-}
+}*/

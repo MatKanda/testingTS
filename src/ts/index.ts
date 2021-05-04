@@ -7,7 +7,7 @@
 
 
 // guide(["prva","druha","tretia","stvrta"]);
-
+/*
 import {testovacia} from "./startGuide";
 
-testovacia();
+testovacia();*/

@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "test": "karma start"
+  },
+  "dependencies": {
+    "express": "4.12.3"
+  },
+  "devDependencies": {
+    "karma": "0.12.31",
+    "karma-chai": "0.1.0",
+    "karma-chrome-launcher": "0.1.4",
+    "karma-mocha": "0.1.10"
+  }
+}
