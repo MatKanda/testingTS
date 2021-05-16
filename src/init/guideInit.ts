@@ -6,13 +6,6 @@ import {animationShow} from "../animations";
 export function guideInit(input: string[]) {
     let currentNode, ni = document.createNodeIterator(document.documentElement, NodeFilter.SHOW_ELEMENT);
 
-    // clear arrays and variables in case of another start of Guide function
-    // while (elements.length > 0) {
-    //     elements.pop();
-    // }
-    // while (popupDivs.length > 0) {
-    //     popupDivs.pop();
-    // }
     numberOfElements = 0;
     currentPopupDivsIndex = 0;
     idCounter = 1;
@@ -35,6 +28,8 @@ export function guideInit(input: string[]) {
 
         if (currentNode.tagName === "BODY") {
             bodyElement = currentNode;
+            bodyElement.setAttribute("data-backGround", getComputedStyle(currentNode).getPropertyValue('backGround'));
+            bodyElement.setAttribute("data-color", getComputedStyle(currentNode).getPropertyValue('color'));
             currentNode.style.background = "rgba(0, 0, 0, 0.85)";
             search = 1;
         }

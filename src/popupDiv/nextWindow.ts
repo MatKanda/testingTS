@@ -2,11 +2,8 @@ import {animationHide, animationShow, finishGuide} from "../animations";
 
 export function nextWindow(){
     if (currentPopupDivsIndex >= popupDivs.length - 1) {
-        // alert("koniec");
         finishGuide();
     } else {
-        // popupDivs[currentPopupDivsIndex++].style.display = "none";  //
-
         //@ts-ignore
         $(popupDivs[currentPopupDivsIndex]).animate({
             opacity: 0.0
@@ -37,6 +34,5 @@ export function nextWindow(){
             opacity: 1
         }, 500);
 
-        // popupDivs[currentPopupDivsIndex].style.display = "block"; //
     }
 }

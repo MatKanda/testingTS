@@ -1,5 +1,6 @@
 import {nextWindow} from "./nextWindow";
 import {prevWindow} from "./prevWindow";
+import {finishGuide} from "../animations";
 
 export function createNextButton(newDiv){
     const nextButton = document.createElement("button") as HTMLButtonElement;
@@ -29,3 +30,13 @@ export function createPrevButton(newDiv){
     newDiv.appendChild(prevButton);
     return prevButton;
 }
+
+export function createExitButton(){
+    const exitButton = document.createElement("button") as HTMLButtonElement;
+    exitButton.appendChild(document.createTextNode("X"));
+    exitButton.addEventListener("click", () => {
+        finishGuide();
+    });
+    return exitButton;
+}
+

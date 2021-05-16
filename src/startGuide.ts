@@ -5,7 +5,7 @@ export function guide(input: string[]) {
     window.popupDivs=[];
     window.numberOfElements = 0;
     window.currentPopupDivsIndex = 0;
-    window.idCounter = 0;
+    window.idCounter = 1;
     window.bodyElement = null;
     window.allHtmlElements = [];
     guideInit(input);
