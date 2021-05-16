@@ -5,7 +5,7 @@ export function animationHide(element: HTMLElement) {
     console.log("hiding element :" + element.id, "current popupDiv index : " + currentPopupDivsIndex);
     //@ts-ignore
     $(element).animate({'aaa': 0}, {        //@ts-ignore
-        duration: 750, step(now) {                         //@ts-ignore
+        duration: 500, step(now) {                         //@ts-ignore
             $(this).css('background-color', 'rgba(' +
                 parseInt((start[0] + (end[0] - start[0]) * now).toString()) + ',' +
                 parseInt((start[1] + (end[1] - start[1]) * now).toString()) + ',' +

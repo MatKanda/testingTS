@@ -10,10 +10,12 @@ export function nextWindow(){
         //@ts-ignore
         $(popupDivs[currentPopupDivsIndex]).animate({
             opacity: 0.0
-        }, 1000);
+        }, 500);
 
 
         animationHide(elements[currentPopupDivsIndex]);
+        (<HTMLInputElement> document.getElementById("nextButton"+(currentPopupDivsIndex+1))).disabled = true;
+        (<HTMLInputElement> document.getElementById("prevButton"+(currentPopupDivsIndex+2))).disabled = false;
         animationShow(elements[currentPopupDivsIndex + 1]);
 
 
@@ -22,7 +24,7 @@ export function nextWindow(){
                 popupDivs[0].style.display = "none";
             else
                 popupDivs[currentPopupDivsIndex - 1].style.display = "none";
-        }, 1000);
+        }, 500);
 
 
         currentPopupDivsIndex++;
@@ -33,7 +35,7 @@ export function nextWindow(){
         //@ts-ignore
         $(popupDivs[currentPopupDivsIndex]).animate({
             opacity: 1
-        }, 1000);
+        }, 500);
 
         // popupDivs[currentPopupDivsIndex].style.display = "block"; //
     }

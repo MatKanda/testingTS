@@ -50,7 +50,7 @@ export function guideInit(input: string[]) {
     //@ts-ignore
     $(popupDivs[currentPopupDivsIndex]).animate({
         opacity: 1
-    }, 750);
+    }, 500);
     animationShow(elements[currentPopupDivsIndex]);
 
 }

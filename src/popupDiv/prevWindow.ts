@@ -11,16 +11,18 @@ export function prevWindow(){
         //@ts-ignore
         $(popupDivs[currentPopupDivsIndex]).animate({
             opacity: 0.0
-        }, 1000);
+        }, 500);
 
 
         animationShow(elements[currentPopupDivsIndex - 1]);
+        (<HTMLInputElement> document.getElementById("nextButton"+(currentPopupDivsIndex))).disabled = false;
+        (<HTMLInputElement> document.getElementById("prevButton"+(currentPopupDivsIndex+1))).disabled = true;
         animationHide(elements[currentPopupDivsIndex]);
 
 
         setTimeout(() => {
             popupDivs[currentPopupDivsIndex + 1].style.display = "none";
-        }, 1000);
+        }, 500);
 
 
         currentPopupDivsIndex--;
@@ -31,6 +33,6 @@ export function prevWindow(){
         //@ts-ignore
         $(popupDivs[currentPopupDivsIndex]).animate({
             opacity: 1
-        }, 1000);
+        }, 500);
     }
 }

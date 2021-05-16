@@ -1,12 +1,12 @@
-// var elements: HTMLElement[] = [];
-// //var popupDivs=[];
-// var popupDivs: HTMLElement[] = [];
-// var numberOfElements:number;
-// var currentPopupDivsIndex:number;
-// var idCounter:number;
-// var bodyElement:HTMLElement;
-// var allHtmlElements:HTMLElement[] = [];
-/*
+var elements: HTMLElement[] = [];
+//var popupDivs=[];
+var popupDivs: HTMLElement[] = [];
+var numberOfElements:number;
+var currentPopupDivsIndex:number;
+var idCounter:number;
+var bodyElement:HTMLElement;
+var allHtmlElements:HTMLElement[] = [];
+
 var inputArray=["prva message","druha message","tretia message"];
 
 function guide(){
@@ -63,18 +63,21 @@ function guideInit(input){
     //
     $( popupDivs[currentPopupDivsIndex]).animate({
         opacity:1
-    }, 1000 );
+    }, 500 );
     animationShow(elements[currentPopupDivsIndex]);
 
 }
 
 function arrangeOrder(array:HTMLElement[]){
-    // console.log(array);
     for (var i=1;i<=numberOfElements;i++)
         for(var j=0;j<array.length;j++)
-            if (array[j].getAttribute("data-guide-step")===i.toString()) //problem s porovnanim bolo treba tostring
-                elements.push(array[j]);
-    // console.log(elements);
+            if(array[j].hasAttribute("data-guide-step")) {
+                if (array[j].getAttribute("data-guide-step") === i.toString()) //problem s porovnanim bolo treba tostring
+                    elements.push(array[j]);
+            }
+             else{
+                 console.log("ERROR : Missing guide-step in your HTML element");
+            }
 }
 
 
@@ -86,6 +89,7 @@ function createPopupDiv(currentNode,inputMessage){
 
     var exitButton=document.createElement("button") as HTMLButtonElement;
     exitButton.appendChild(document.createTextNode("X"));
+    exitButton.id="exitButton"+(idCounter-1);
     exitButton.addEventListener("click",function (){finishGuide();});
     newDiv.appendChild(exitButton);
 
@@ -98,6 +102,7 @@ function createPopupDiv(currentNode,inputMessage){
     newP.style.marginLeft="12px";
     newP.style.marginRight="12px";
     newP.style.marginTop="0";
+    newP.id="p"+(idCounter-1);
     newDiv.appendChild(newP);
 
     var nextButton=document.createElement("button") as HTMLButtonElement;
@@ -110,6 +115,7 @@ function createPopupDiv(currentNode,inputMessage){
     nextButton.style.marginLeft="17px";
     nextButton.style.display="inline-block";
     nextButton.style.borderRadius="50px";
+    nextButton.id="nextButton"+(idCounter-1);
 
     nextButton.addEventListener("click",nextWindow=>{
         if(currentPopupDivsIndex>=popupDivs.length-1) {
@@ -122,11 +128,13 @@ function createPopupDiv(currentNode,inputMessage){
             
             $( popupDivs[currentPopupDivsIndex]).animate({
                 opacity:0.0
-            }, 1000 );
+            }, 500 );
 
 
 
             animationHide(elements[currentPopupDivsIndex]);
+            (<HTMLInputElement> document.getElementById("nextButton"+(currentPopupDivsIndex+1))).disabled = true;
+            (<HTMLInputElement> document.getElementById("prevButton"+(currentPopupDivsIndex+2))).disabled = false;
             animationShow(elements[currentPopupDivsIndex+1]);
 
 
@@ -135,7 +143,7 @@ function createPopupDiv(currentNode,inputMessage){
                     popupDivs[0].style.display = "none";
                 else
                     popupDivs[currentPopupDivsIndex-1].style.display = "none";
-                },1000);
+                },500);
 
 
             currentPopupDivsIndex++;
@@ -146,7 +154,7 @@ function createPopupDiv(currentNode,inputMessage){
             
             $( popupDivs[currentPopupDivsIndex]).animate({
                 opacity:1
-            }, 1000 );
+            }, 500 );
 
             // popupDivs[currentPopupDivsIndex].style.display = "block"; //
         }
@@ -162,7 +170,9 @@ function createPopupDiv(currentNode,inputMessage){
         var prevButton = document.createElement("button");
         prevButton.appendChild(document.createTextNode("Prev"));
         prevButton.style.marginLeft="5px";
-        prevButton.style.borderRadius="50px";
+        prevButton.style.borderRadius="50px";   
+        prevButton.id="prevButton"+(idCounter-1);
+
         prevButton.addEventListener('click',prevWindow=>{
             if(currentPopupDivsIndex<1) {
                 alert("koniec");
@@ -174,14 +184,16 @@ function createPopupDiv(currentNode,inputMessage){
                 
                 $( popupDivs[currentPopupDivsIndex]).animate({
                     opacity:0.0
-                }, 1000 );
+                }, 500 );
 
 
                 animationShow(elements[currentPopupDivsIndex-1]);
+                (<HTMLInputElement> document.getElementById("nextButton"+(currentPopupDivsIndex))).disabled = false;
+                (<HTMLInputElement> document.getElementById("prevButton"+(currentPopupDivsIndex+1))).disabled = true;
                 animationHide(elements[currentPopupDivsIndex]);
 
 
-                setTimeout(()=>{popupDivs[currentPopupDivsIndex+1].style.display = "none";},1000);
+                setTimeout(()=>{popupDivs[currentPopupDivsIndex+1].style.display = "none";},500);
 
 
                 currentPopupDivsIndex--;
@@ -191,7 +203,7 @@ function createPopupDiv(currentNode,inputMessage){
                 
                 $( popupDivs[currentPopupDivsIndex]).animate({
                     opacity:1
-                }, 1000 );
+                }, 500 );
             }
         });
         newDiv.appendChild(prevButton);
@@ -228,16 +240,15 @@ function  animationShow(element:HTMLElement){
     // var third=parseColor(element.getAttribute("color"))[2];
     // console.log("atribut" ,first," ",second," ",third);
 
-    console.log("showing element :"+element.id, "current popupDiv index : "+currentPopupDivsIndex);
     // var start = [40,40,40,0], end=[255,255,255,1];
     var start = [40,40,40,0], end=[255,255,255,1];
     //
     $(element).animate( {'aaa': 1},{
-        duration:1000,step: function(now){
+        duration:500,step: function(now){
             //
-            $(this).css('background-color', 'rgba('+                                //
-                parseInt(start[0] + (end[0]-start[0]) * now) + ',' +            //
-                parseInt(start[1] + (end[1]-start[1]) * now) + ',' +            //
+            $(this).css('background-color', 'rgba('+                                //@ts-ignore
+                parseInt(start[0] + (end[0]-start[0]) * now) + ',' +            //@ts-ignore
+                parseInt(start[1] + (end[1]-start[1]) * now) + ',' +            //@ts-ignore
                 parseInt(start[2] + (end[2]-start[2]) * now) + ')'
             )                                                                     //
         }});
@@ -251,15 +262,14 @@ function animationHide(element){
     //
     // // var start = [40,40,40,0], end=[255,255,255,1];
     var start = [40,40,40,0], end=[255,255,255,1];
-    console.log("hiding element :"+element.id, "current popupDiv index : "+currentPopupDivsIndex);
 
     //
     $(element).animate( {'aaa': 0},{
-        duration:1000,step: function(now){
-            //
-            $(this).css('background-color', 'rgba('+                                //
-                parseInt(start[0] + (end[0]-start[0]) * now) + ',' +            //
-                parseInt(start[1] + (end[1]-start[1]) * now) + ',' +            //
+        duration:500,step: function(now){
+            //@ts-ignore
+            $(this).css('background-color', 'rgba('+                                //@ts-ignore
+                parseInt(start[0] + (end[0]-start[0]) * now) + ',' +            //@ts-ignore
+                parseInt(start[1] + (end[1]-start[1]) * now) + ',' +            //@ts-ignore
                 parseInt(start[2] + (end[2]-start[2]) * now) + ')'
             )                                                                     //
         }});
@@ -315,17 +325,29 @@ function setStyle(div,currentNode,exitButton){
 }
 
 function finishGuide(){
-    popupDivs[currentPopupDivsIndex++].style.display="none";
-    bodyElement.style.background = "rgba(255, 255, 255, 0)";
-    allHtmlElements.forEach(function (element){
-        element.style.background=element.getAttribute("data-background");
-        element.style.color=element.getAttribute("data-color");
-        element.style.opacity="1";
-        element.removeAttribute("data-background");
-        element.removeAttribute("data-color");
-    });
+     setTimeout(()=>{
+        popupDivs.forEach(div=>{div.style.display="none"});
+        bodyElement.style.background = "rgba(255, 255, 255, 0)";
+        allHtmlElements.forEach(function (element){
+            element.style.background=element.getAttribute("data-background");
+            element.style.color=element.getAttribute("data-color");
+            element.style.opacity="1";
+            element.removeAttribute("data-background");
+            element.removeAttribute("data-color");
+        });
+         },400);
+
+    // popupDivs.forEach(div=>{div.style.display="none"});
+    // bodyElement.style.background = "rgba(255, 255, 255, 0)";
+    //     allHtmlElements.forEach(function (element){
+    //     element.style.background=element.getAttribute("data-background");
+    //     element.style.color=element.getAttribute("data-color");
+    //     element.style.opacity="1";
+    //     // element.removeAttribute("data-background");
+    //     // element.removeAttribute("data-color");
+    // });
 }
-*/
+
 
 //
 // class GuideInit{
