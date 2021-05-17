@@ -2,7 +2,6 @@ export function animationHide(element: HTMLElement) {
     const start = [40, 40, 40, 0];
     const end = [255, 255, 255, 1];
 
-    console.log("hiding element :" + element.id, "current popupDiv index : " + currentPopupDivsIndex);
     //@ts-ignore
     $(element).animate({'aaa': 0}, {        //@ts-ignore
         duration: 500, step(now) {                         //@ts-ignore

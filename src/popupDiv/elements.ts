@@ -18,6 +18,7 @@ export function createParagraph(inputMessage) {
     newP.style.marginRight = "12px";
     newP.style.marginTop = "0";
     newP.style.color="black";
+    newP.id="p"+(idCounter-1);
 
     return newP;
 }

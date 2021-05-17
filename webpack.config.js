@@ -17,7 +17,7 @@ module.exports = {
         ]
     },
     output: {
-        filename: "libka.js",
+        filename: "WebGuide.js",
         path: path.resolve(__dirname,"dist")
     },
     devtool: "inline-source-map",

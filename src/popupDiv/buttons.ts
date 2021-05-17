@@ -34,6 +34,7 @@ export function createPrevButton(newDiv){
 export function createExitButton(){
     const exitButton = document.createElement("button") as HTMLButtonElement;
     exitButton.appendChild(document.createTextNode("X"));
+    exitButton.id="exitButton"+(idCounter-1);
     exitButton.addEventListener("click", () => {
         finishGuide();
     });

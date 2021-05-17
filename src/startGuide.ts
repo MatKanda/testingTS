@@ -1,6 +1,6 @@
 import {guideInit} from "./init";
 
-export function guide(input: string[]) {
+export function webGuide(input: string[]) {
     window.elements = [];
     window.popupDivs=[];
     window.numberOfElements = 0;

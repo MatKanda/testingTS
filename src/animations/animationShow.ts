@@ -1,5 +1,4 @@
 export function animationShow(element: HTMLElement) {
-    console.log("showing element :" + element.id, "current popupDiv index : " + currentPopupDivsIndex);
 
     const start = [40, 40, 40, 0];
     const end = [255, 255, 255, 1];
