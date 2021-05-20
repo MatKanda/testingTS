@@ -1,7 +1,7 @@
 {
   "name": "web-guide",
   "version": "1.0.0",
-  "description": "Web library for creating an website guide using pop-up windows.",
+  "description": "Web library for creating website guide using pop-up windows.",
   "main": "index.ts",
   "keywords": [],
   "scripts": {
@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MatKanda/testingTS.git"
+    "url": "git+https://github.com/MatKanda/WebGuide"
   },
   "author": "Matúš Kanda",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/MatKanda/testingTS/issues"
+    "url": "https://github.com/MatKanda/WebGuide/issues"
   },
-  "homepage": "https://github.com/MatKanda/testingTS#readme",
+  "homepage": "https://github.com/MatKanda/WebGuide#readme",
   "devDependencies": {
     "@types/jquery": "^3.5.5",
     "clean-webpack-plugin": "^3.0.0",

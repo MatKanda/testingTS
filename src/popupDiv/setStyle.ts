@@ -1,8 +1,5 @@
 export function setStyle(div: HTMLElement, currentNode: HTMLElement, exitButton: HTMLElement) {
     const position = currentNode.getAttribute("data-guide-position");
-    // console.log(position);
-    // div.style.display="none";
-    // problem v ziskani pozicie kedze som nastavil najprv display none a potom zistoval poziciu
     div.style.position = "absolute";
     div.style.borderRadius = "20px";
     div.style.maxWidth = "20%";
