@@ -4,13 +4,11 @@
 GuideTS has just one dependency and it's jQuery. It's used to animate 
 showing and hiding of elements as well as pop-up windows. 
 
-You can use [CDN](https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js)
-link or download it directly to your project.
 
 ### Installation
 You can acquire local copy to your project from:
-1. The github repository from this [link](www.google.com)
-2. Using npm ```npm install WebGuide```
+1. The github repository from this [link](https://github.com/MatKanda/WebGuide)
+2. Using npm ```npm install webguide```
 
 ### Setup & Start
 After the download of the source, you need to link the library 
